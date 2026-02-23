@@ -1,36 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Study Control System
 
-## Getting Started
+A production-ready Web App optimized for Vercel deployment, built with Next.js 14, Tailwind CSS, Supabase, and Recharts.
 
-First, run the development server:
+## Folder Structure
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+\`\`\`text
+study-control-system/
+├── src/
+│   ├── app/
+│   │   ├── (app)/               # Protected routes
+│   │   │   ├── analytics/       # Weekly Analytics 
+│   │   │   ├── backlog/         # Backlog Tracker 
+│   │   │   ├── daily-log/       # Daily Logs 
+│   │   │   ├── dashboard/       # Dashboard with summary
+│   │   │   ├── routine/         # Smart Routine logic
+│   │   │   └── layout.tsx       # App Layout with Sidebar
+│   │   ├── auth/                # Auth handlers (signout)
+│   │   ├── login/               # Authentication page
+│   │   ├── globals.css          # Global Tailwind styles
+│   │   └── layout.tsx           # Global Root Layout
+│   ├── components/              # Reusable components
+│   │   └── Sidebar.tsx          # Main App Sidebar
+│   └── lib/
+│       ├── constants.ts         # Hardcoded Subjects & Timetable
+│       └── supabase/            # Supabase Server/Client configs
+├── supabase/                    
+│   └── migrations/              # Supabase DB schema & RLS policies
+├── next.config.mjs
+├── tailwind.config.ts
+├── postcss.config.mjs
+├── package.json
+└── README.md
+\`\`\`
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Environment Variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+To run locally and deploy to Vercel, you will need the following environment variables (defined in your Supabase project):
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create a `.env.local` file in the root directory:
+\`\`\`env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+\`\`\`
 
-## Learn More
+You can find these values in your Supabase Dashboard under **Project Settings > API**.
 
-To learn more about Next.js, take a look at the following resources:
+## Supabase Setup (Finished)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Your Supabase schema and RLS policies have been successfully pushed to the project:
+`https://supabase.com/dashboard/project/veneqwdjesenmoszsvow`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+It contains the `daily_logs` and `backlog_tracker` tables securely behind Row Level Security (RLS) policies.
 
-## Deploy on Vercel
+## Vercel Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Deploying to Vercel is highly optimized for this stack.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **Commit and Push to GitHub**:
+   \`\`\`bash
+   git add .
+   git commit -m "Initial commit of Study Control System"
+   git branch -M main
+   # Link to your github repo and push
+   git remote add origin https://github.com/yourusername/study-control-system.git
+   git push -u origin main
+   \`\`\`
+
+2. **Connect to Vercel**:
+   - Go to [Vercel](https://vercel.com/) and click **Add New Project**.
+   - Import the GitHub repository you just created.
+
+3. **Configure Environment Variables in Vercel**:
+   - During the import process, expand the **Environment Variables** section.
+   - Add `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+
+4. **Deploy**:
+   - Click **Deploy**. Vercel will automatically detect Next.js and run the build command (`npm run build`).
+
+Once deployed, any commits pushed to the `main` branch will automatically trigger a production build on Vercel!
