@@ -9,19 +9,14 @@ import {
 export default async function DashboardPage() {
     const supabase = createClient()
 
-    // This helps grab the current user 
-    const { data: { user } } = await supabase.auth.getUser()
-
     // Grab basic stats for the dashboard
     const { data: backlogData } = await supabase
         .from('backlog_tracker')
         .select('*')
-        .eq('user_id', user?.id)
 
     const { data: logsData } = await supabase
         .from('daily_logs')
         .select('hours_studied')
-        .eq('user_id', user?.id)
 
     const openBacklog = backlogData?.filter(b => b.status !== 'Completed').length || 0
     const completedBacklog = backlogData?.filter(b => b.status === 'Completed').length || 0

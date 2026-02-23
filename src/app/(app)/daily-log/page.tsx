@@ -26,13 +26,9 @@ export default function DailyLogPage() {
     const fetchLogs = async () => {
         try {
             setLoading(true)
-            const { data: { user } } = await supabase.auth.getUser()
-            if (!user) return
-
             const { data, error } = await supabase
                 .from('daily_logs')
                 .select('*')
-                .eq('user_id', user.id)
                 .order('created_at', { ascending: false })
 
             if (error) throw error
@@ -50,11 +46,7 @@ export default function DailyLogPage() {
 
         try {
             setSubmitLoading(true)
-            const { data: { user } } = await supabase.auth.getUser()
-            if (!user) return
-
             const newLog = {
-                user_id: user.id,
                 subject,
                 hours_studied: parseFloat(hours),
                 topic_covered: topic || null,

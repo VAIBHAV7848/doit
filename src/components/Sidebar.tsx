@@ -56,12 +56,9 @@ export default function Sidebar() {
             </div>
 
             <div className="p-6">
-                <form action="/auth/signout" method="post">
-                    <button className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-zinc-400 transition-all hover:bg-red-500/10 hover:text-red-400 border border-transparent hover:border-red-500/20">
-                        <LogOut className="h-5 w-5" />
-                        Sign out
-                    </button>
-                </form>
+                <div className="text-xs text-zinc-600 text-center">
+                    Study Control System v0.1.0
+                </div>
             </div>
         </div>
     )

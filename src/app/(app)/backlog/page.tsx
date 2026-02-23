@@ -27,13 +27,9 @@ export default function BacklogPage() {
     const fetchItems = async () => {
         try {
             setLoading(true)
-            const { data: { user } } = await supabase.auth.getUser()
-            if (!user) return
-
             const { data, error } = await supabase
                 .from('backlog_tracker')
                 .select('*')
-                .eq('user_id', user.id)
                 .order('priority', { ascending: false }) // Very simple order, could be improved based on actual enums
                 .order('target_date', { ascending: true })
 
@@ -52,11 +48,7 @@ export default function BacklogPage() {
 
         try {
             setSubmitLoading(true)
-            const { data: { user } } = await supabase.auth.getUser()
-            if (!user) return
-
             const newItem = {
-                user_id: user.id,
                 subject,
                 topic,
                 status,

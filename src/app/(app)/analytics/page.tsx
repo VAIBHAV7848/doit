@@ -27,16 +27,12 @@ export default function AnalyticsPage() {
     const fetchAnalytics = async () => {
         try {
             setLoading(true)
-            const { data: { user } } = await supabase.auth.getUser()
-            if (!user) return
-
             // Get last 7 days boundary
             const sevenDaysAgo = format(subDays(new Date(), 6), 'yyyy-MM-dd')
 
             const { data, error } = await supabase
                 .from('daily_logs')
                 .select('date, hours_studied')
-                .eq('user_id', user.id)
                 .gte('date', sevenDaysAgo)
 
             if (error) throw error
